@@ -1,4 +1,4 @@
-# Pnadería Féliz
+# Panadería Féliz
 
 Una página web sobre una panadería creada con React js. 
 
