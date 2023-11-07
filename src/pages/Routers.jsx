@@ -1,17 +1,26 @@
 // import '../App.css'
+import { GrMenu } from 'react-icons/gr'
+import { useState } from 'react'
 import { Outlet, Link } from "react-router-dom"
 export const Routers = () => {
+
+ const [menuVisible, setMenuVisible] = useState(false);
+ const menu_mobile = ()=> {
+  setMenuVisible(!menuVisible)
+ }
   return (
     <>
         <header className="header">
         <nav className="nav">
             <img src="src\img\Panaderia Felíz.png" alt="logo"/>
-          <button className="nav-toggle" aria-label="Abrir menú">
-            {/* <i className="fas fa-bars"></i> */}
+          <button className="nav-toggle" aria-label={menuVisible ? 'Cerrar menú' : 'Abrir menú'}
+            onClick={menu_mobile}
+          >
+            <GrMenu />
           </button>
-          <ul className="nav-menu">
+          <ul className={`nav-menu ${menuVisible ? 'nav-menu_visible' : ''}`}>
             <li className="nav-menu-item">
-              <Link to="/" className="nav-menu-link nav-link nav-menu-link_active">Inicio</Link>
+              <Link to="/" className="nav-menu-link nav-link">Inicio</Link>
             </li>
             <li className="nav-menu-item">
               <Link to="/Servicios" className="nav-menu-link nav-link">Servicios</Link>
