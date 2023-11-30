@@ -14,8 +14,7 @@ export const Routers = () => {
         <nav className="nav">
             <img src="src\img\Panaderia Felíz.png" alt="logo"/>
           <button className="nav-toggle" aria-label={menuVisible ? 'Cerrar menú' : 'Abrir menú'}
-            onClick={menu_mobile}
-          >
+            onClick={menu_mobile}>
             <GrMenu />
           </button>
           <ul className={`nav-menu ${menuVisible ? 'nav-menu_visible' : ''}`}>
@@ -29,7 +28,6 @@ export const Routers = () => {
               <Link to="/Nosotros" className="nav-menu-link nav-link">Nosotros</Link>
             </li>
             <li className="nav-menu-item">
-   
               <Link to="/Productos" className="nav-menu-link nav-link">Productos</Link>
             </li>
           </ul>

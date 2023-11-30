@@ -3,8 +3,26 @@ import Formulario from "../components/Formulario"
 import Container from "../components/Container";
 import Routers from "./Routers";
 import Banner from "../components/Banner"
+import { useState, useEffect } from "react";
 
 export const Productos = () => {
+  const [comprados, setComprados] = useState([]);
+  
+  useEffect(() => {
+    fetch("../productos.json")
+      .then((response) => response.json())
+      .then((data) => {
+        if (data && data.famosos && Array.isArray(data.famosos)) {
+          setComprados(data.famosos);
+        } else {
+          console.error("La categoría 'famosos' no existe en el archivo productos.json.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error al obtener los productos:", error);
+      });
+  }, []);
+  
     return (
       <>
       {/* AQUI VA EL BANNER  */}
@@ -13,7 +31,7 @@ export const Productos = () => {
        {/* AQUI VA EL HEADER */}
         <Routers/>
 
-    <h2>Nuestros productos</h2>
+    <h2>Nuestros productos más comprados</h2>
     <div className="contenedor">
         <figure>
             <img src="src/img/variedad.jpg" alt="Panes"/>
@@ -23,15 +41,14 @@ export const Productos = () => {
             </div>
         </figure>
     </div>
-    <Container imgUrl={`pan frances.jpg`} name={'Croissant'} precio={20}/>
-    <Container imgUrl={`donas.jpg`} name={'Donas'} precio={15}/>
-    <Container imgUrl={`pasteles.jpg`} name={'Pasteles'} precio={"Precio variado"}/>
-    <Container imgUrl={`Galletas con chispas de chocolate.jpg`} name={'Galletas con chispas de chocolate'} precio={5}/>
-    <Container imgUrl={`Galletas Maria.jpg`} name={'Galletas María'} precio={5}/>
-    <Container imgUrl={`pastel.jpg`} name={'Pastel'} precio={250}/>
-    <Container imgUrl={`Galletas Krispis.png`} name={'Galletas Krispiz'} precio={15}/>
-    <Container imgUrl={`pan.jpeg`} name={'Bocadillos'} precio={25}/>
 
+    {Array.isArray(comprados) ? (
+        comprados.map((item, id) => (
+          <Container key={id} imgUrl={item.imagen} name={item.nombre} precio={item.precio}/>
+        ))
+      ) : (
+        <p>No hay productos disponibles</p>
+      )}
   <h2 id="psa">
   hola
   </h2>

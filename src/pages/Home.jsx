@@ -3,8 +3,28 @@ import Formulario from "../components/Formulario"
 import Container from "../components/Container";
 import Routers from "./Routers";
 import Banner from "../components/Banner";
+// import ofertas from '../productos.json'
+import { useState, useEffect } from "react";
 
 export const Home = () => {
+
+  const [productos, setProductos] = useState([])
+
+  useEffect(() => {
+    fetch("../productos.json")
+      .then((response) => response.json())
+      .then((data) => {
+        if (data && data.ofertas && Array.isArray(data.ofertas)) {
+          setProductos(data.ofertas);
+        } else {
+          console.error("La categoría 'ofertas' no existe en el archivo productos.json.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error al obtener los productos:", error);
+      });
+  }, []);
+  
   return (
     <>
 
@@ -19,12 +39,13 @@ export const Home = () => {
     <p>Presentamos nuestros nuevos productos a buen precio</p>
 
     {/* Aqui van los productos */}
-    <Container imgUrl={`Tostada.jpeg`} name={'Tostada'} precio={25}/>
-    <Container imgUrl={`Sandwichs.jpg`} name={'Sandwich'} precio={30}/>
-    <Container imgUrl={`Pan con mermelada.jpeg`} name={'Pan con mermelada'} precio={15}/>
-    <Container imgUrl={`Pan de yuca.jpeg`} name={'Pan de Yuca'} precio={25}/>
-    <Container imgUrl={`Pan de batata.jpeg`} name={'Pan de batata'} precio={20}/>
-    <Container imgUrl={`Pan de maíz.jpeg`} name={'Pan de maíz'} precio={25}/>
+      {Array.isArray(productos) ? (
+        productos.map((item, id) => (
+          <Container key={id} imgUrl={item.imagen} name={item.nombre} precio={item.precio}/>
+        ))
+      ) : (
+        <p>No hay productos disponibles</p>
+      )}
     
     <h2 id="horario">Horarios</h2>
     <p><b>Domingos: </b>No laborable</p><br/>

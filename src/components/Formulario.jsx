@@ -26,7 +26,7 @@ export const Formulario = () => {
         <div className="grupo1">
           <div className="box">
             <h2>Contáctanos</h2>
-            <form>
+            <form id="Contacto">
               <label htmlFor="iname">Nombre:</label>
               <input id="Nombre" type="text" name="Nombre" autoFocus required />
               <label htmlFor="Apellido">Apellido:</label>
