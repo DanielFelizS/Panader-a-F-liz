@@ -5,4 +5,5 @@ Una página web sobre una panadería creada con React js.
 Utiliza las siguientes dependencias:
 - React Router
 - React Icons
-- Recat Iframe
+- React Iframe
+- useState y useEffect
